@@ -11,9 +11,9 @@ public class RegistrationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // ✅ Database configuration
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/java_project";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "pranav";
+    private static final String JDBC_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12817692";
+    private static final String DB_USER = "sql12817692";
+    private static final String DB_PASSWORD = "UIbSXRrAMi";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

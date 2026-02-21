@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 public class TestDB {
     public static void main(String[] args) {
         try {
-            String url = "jdbc:mysql://localhost:3306/java_project";
-            String username = "root";
-            String password = "pranav";
+            String url = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12817692";
+            String username = "sql12817692";
+            String password = "UIbSXRrAMi";
 
             Connection con = DriverManager.getConnection(url, username, password);
 

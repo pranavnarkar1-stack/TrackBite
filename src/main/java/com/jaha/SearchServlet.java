@@ -20,9 +20,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/java_project";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "pranav";
+    private static final String JDBC_URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12817692";
+    private static final String DB_USER = "sql12817692";
+    private static final String DB_PASSWORD = "UIbSXRrAMi";
 
     // Helper for formatting doubles to two decimal places (e.g., 0.80)
     private static final DecimalFormat DF = new DecimalFormat("0.00"); 
