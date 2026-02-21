@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg,#6a11cb 0%,#2575fc 100%);
+      color: white;
+      text-align: center;
+    }
+    .container {
+      background: rgba(0,0,0,0.5);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    }
+    h1 { margin-bottom: 20px; }
+    a { color: #fff; text-decoration: underline; cursor: pointer; }
+    a:hover { color: #ffd700; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <p id="userGreeting">You have logged in successfully.</p>
+    <p><a href="login_register.html">Logout</a></p>
+  </div>
+
+  <script>
+    // Get the username from query parameter
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get('user');
+
+    if(user){
+      const greeting = document.getElementById('userGreeting');
+      greeting.innerText = `Hello, ${user}! You have logged in successfully.`;
+    }
+  </script>
+</body>
+</html>

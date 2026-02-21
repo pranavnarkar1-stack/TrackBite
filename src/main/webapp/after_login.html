@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TrackBite - Food Calorie Calculator System</title>
+<link rel="icon" type="image/png" href="output-onlinepngtools (4).png" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Root Colors */
+  :root {
+    --primary-color: #00bcd4;
+    --primary-dark: #0097a7;
+    --background-light: #e0f7fa;
+    --background-body: #f7f9fc;
+    --text-dark: #333;
+    --shadow-light: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-deep: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--background-body);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  header {
+    background: var(--primary-dark);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+  }
+  header h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.4rem;
+  }
+
+  /* Header Buttons */
+  .header-buttons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 10px;
+  }
+  .header-buttons button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+  }
+  #homeBtn { background: #4caf50; }
+  #homeBtn:hover { background: #388e3c; }
+  #logoutBtn { background: #ff5722; }
+  #logoutBtn:hover { background: #e64a19; }
+
+  /* Layout */
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+  }
+
+  .left, .right {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    flex: 1 1 45%;
+    min-width: 300px;
+    box-shadow: var(--shadow-deep);
+    transition: transform 0.3s ease;
+  }
+
+  .left:hover, .right:hover { transform: translateY(-2px); }
+
+  /* Search Bar */
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-weight: 300;
+  }
+  .search-bar input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 188, 212, 0.5);
+    outline: none;
+  }
+  .search-bar button {
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  .search-bar button:active { transform: translateY(1px); }
+  .search-bar button[type="submit"] {
+    background: var(--primary-color);
+    color: white;
+  }
+  .search-bar button[type="submit"]:hover { background: var(--primary-dark); }
+  .search-bar button[type="reset"] {
+    background: #ff5722;
+    color: white;
+  }
+  .search-bar button[type="reset"]:hover { background: #e64a19; }
+
+  /* Results */
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    min-height: 200px;
+  }
+  .no-result { color: #999; padding: 10px; text-align: center; }
+
+  .food-card {
+    background: var(--background-light);
+    padding: 20px;
+    border-radius: 10px;
+    width: calc(33.33% - 14px);
+    min-width: 180px;
+    position: relative;
+    box-shadow: var(--shadow-light);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .food-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 188, 212, 0.2);
+    transform: translateY(-3px);
+  }
+  .food-card h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: 1.1em;
+  }
+  .food-card p { font-size: 0.9em; color: #555; margin: 3px 0; }
+  .food-card button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+  }
+  .food-card button:hover { background: var(--primary-dark); }
+
+  /* Selected Foods */
+  .right h3 {
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--background-light);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  .selected-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1em;
+    flex-wrap: wrap;
+  }
+  .selected-item:last-child { border-bottom: none; }
+
+  .qty-input {
+    width: 60px;
+    margin: 0 8px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .remove-btn {
+    background: #e57373;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .remove-btn:hover { background: #d32f2f; }
+
+  .total-cal {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--primary-color);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--primary-dark);
+    text-align: right;
+  }
+
+  /* ---------- RESPONSIVE DESIGN ---------- */
+  @media (max-width: 900px) {
+    .food-card {
+      width: calc(50% - 10px);
+    }
+  }
+
+  @media (max-width: 700px) {
+    header {
+      padding: 15px 10px;
+    }
+    header h1 {
+      font-size: 1.2rem;
+    }
+    .header-buttons {
+      position: static;
+      transform: none;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .container {
+      flex-direction: column;
+      width: 95%;
+    }
+    .left, .right {
+      flex: 1 1 100%;
+      padding: 20px;
+    }
+    .food-card {
+      width: 100%;
+    }
+    .search-bar {
+      flex-direction: column;
+    }
+    .search-bar button {
+      width: 100%;
+    }
+    .total-cal {
+      text-align: left;
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .qty-input {
+      width: 50px;
+    }
+    .header-buttons button {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💪 TrackBite - Food calorie calculator system</h1>
+  <div class="header-buttons">
+    <button id="homeBtn">Home</button>
+    <button id="logoutBtn">Logout</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="left">
+    <form id="searchForm" class="search-bar">
+      <input type="text" name="query" id="query" placeholder="Search food... e.g. Apple, Banana" required>
+      <button type="submit">Search</button>
+      <button type="reset">Clear</button>
+    </form>
+
+    <div class="results" id="results">
+      <p class="no-result">Search results will appear here.</p>
+    </div>
+  </div>
+
+  <div class="right selected-foods">
+    <h3>🍽️ Today's Meal</h3>
+    <div id="selectedList"></div>
+    <div class="total-cal">Total Calories: <span id="totalCal">0</span> kcal</div>
+  </div>
+</div>
+
+<script>
+  const searchForm = document.getElementById('searchForm');
+  const resultsDiv = document.getElementById('results');
+  const selectedList = document.getElementById('selectedList');
+  const totalCalSpan = document.getElementById('totalCal');
+  let totalCalories = 0;
+
+  function recalcTotal() {
+    let sum = 0;
+    document.querySelectorAll('.selected-item').forEach(item => {
+      const cal = parseInt(item.getAttribute('data-calories'));
+      const qty = parseInt(item.querySelector('.qty-input').value) || 1;
+      sum += cal * qty;
+    });
+    totalCalories = sum;
+    totalCalSpan.textContent = totalCalories;
+  }
+
+  function handleRemove(event) {
+    const item = event.currentTarget.closest('.selected-item');
+    item.remove(); 
+    recalcTotal();
+  }
+
+  function handleAddButtonClick() {
+    const name = this.getAttribute('data-name');
+    const cal = parseInt(this.getAttribute('data-calories'));
+    
+    const div = document.createElement('div');
+    div.classList.add('selected-item');
+    div.setAttribute('data-calories', cal); 
+    
+    const span = document.createElement('span');
+    span.textContent = `${name} - ${cal} kcal each`;
+
+    const qtyInput = document.createElement('input');
+    qtyInput.type = 'number';
+    qtyInput.min = 1;
+    qtyInput.value = 1;
+    qtyInput.classList.add('qty-input');
+    qtyInput.addEventListener('input', recalcTotal);
+
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add('remove-btn');
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', handleRemove);
+
+    div.appendChild(span);
+    div.appendChild(qtyInput);
+    div.appendChild(removeBtn);
+    
+    selectedList.appendChild(div);
+    recalcTotal();
+  }
+
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('query').value;
+    resultsDiv.innerHTML = "<p style='text-align:center;'>Loading results...</p>";
+
+    fetch(`searching?query=${encodeURIComponent(query)}`)
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(data => {
+        resultsDiv.innerHTML = data;
+        document.querySelectorAll('.food-card button').forEach(btn => {
+          btn.addEventListener('click', handleAddButtonClick);
+        });
+      })
+      .catch(err => {
+        resultsDiv.innerHTML = "<p class='no-result' style='color:#f44336;'>🚨 Error fetching results.</p>";
+        console.error(err);
+      });
+  });
+
+  searchForm.addEventListener('reset', function() {
+    resultsDiv.innerHTML = "<p class='no-result'>Search results will appear here.</p>";
+    selectedList.innerHTML = "";
+    totalCalories = 0;
+    totalCalSpan.textContent = totalCalories;
+  });
+
+  document.getElementById('homeBtn').addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
+  document.getElementById('logoutBtn').addEventListener('click', function() {
+    window.location.href = 'login_register.html';
+  });
+</script>
+
+</body>
+</html>

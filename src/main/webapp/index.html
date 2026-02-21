@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrackBite - Food Calorie Calculator System</title>
+    <link rel="icon" type="image/png" href="/servletss/src/main/webapp/images/output-onlinepngtools (4).png" />
+    <link rel="icon" type="icon" href="output-onlinepngtools (4).png" />
+    <link rel="stylesheet" href="tempstyle.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /* -------- RESET & BASE -------- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: #ffffff;
+        color: #222;
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* -------- HEADER -------- */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        animation: fadeDown 1s ease;
+      }
+
+      /* -------- GLOSSY + BOUNCY LOGO -------- */
+      .logo {
+        font-size: 2.4rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        background: linear-gradient(90deg, #007aff, #00c6ff, #00b4d8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        display: inline-block;
+        animation: bounce 2s infinite ease-in-out;
+      }
+
+      /* Glossy light reflection */
+      .logo::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.3) 0%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 0.3) 100%
+        );
+        transform: skewX(-20deg);
+        animation: shine 3s infinite;
+      }
+
+      /* Bounce + Shine Animations */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      @keyframes shine {
+        0% {
+          left: -75%;
+        }
+        100% {
+          left: 125%;
+        }
+      }
+
+      /* -------- HERO HEADING -------- */
+      .hero-heading {
+        text-align: center;
+        margin: 4rem 1rem;
+        animation: fadeInUp 1.5s ease forwards;
+      }
+
+      .hero-heading h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #007aff, #00b4d8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 1px;
+        line-height: 1.2;
+        animation: gentleBounce 2s ease-in-out infinite;
+      }
+
+      .hero-heading p {
+        font-size: 1.2rem;
+        color: #555;
+        margin-top: 0.8rem;
+        opacity: 0.9;
+        animation: fadeIn 2s ease forwards 0.5s;
+      }
+
+      /* -------- LOGIN & REGISTER BUTTONS -------- */
+      .login-buttons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .login-buttons button {
+        padding: 0.7rem 1.6rem;
+        border: none;
+        border-radius: 14px;
+        font-weight: 600;
+        font-family: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+        cursor: pointer;
+        transition: all 0.35s ease;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      }
+
+      /* LOGIN BUTTON – Deep Neon Blue */
+      .login-buttons .login-btn {
+        background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc);
+        border: 1px solid rgba(0, 82, 212, 0.3);
+        color: #fff; /* white text for login */
+      }
+
+      .login-buttons .login-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: linear-gradient(135deg, #6fb1fc, #4364f7, #0052d4);
+        box-shadow: 0 8px 25px rgba(67, 100, 247, 0.6);
+      }
+
+      /* REGISTER BUTTON – Gradient Background, Red Text with Underline */
+      .login-buttons .register-btn {
+        background: linear-gradient(135deg, #ff6a00, #ee0979);
+        border: 1px solid rgba(255, 106, 0, 0.3);
+        color: red; /* red text */
+        text-decoration: underline; /* underlined text */
+      }
+
+      .login-buttons .register-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        background: linear-gradient(135deg, #ee0979, #ff6a00);
+        box-shadow: 0 8px 25px rgba(255, 106, 0, 0.6);
+      }
+
+      /* -------- CAROUSEL -------- */
+      .image-show {
+        border-radius: 25px;
+        margin: 2rem auto;
+        width: 90%;
+        max-width: 1200px; /* prevent images from stretching too much */
+        overflow: hidden;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+        animation: fadeUp 1.5s ease;
+        perspective: 1000px;
+      }
+
+      .carousel-inner {
+        height: 500px; /* fixed height for desktop */
+      }
+
+      @media (max-width: 1200px) {
+        .carousel-inner {
+          height: 400px; /* responsive height */
+        }
+      }
+
+      @media (max-width: 768px) {
+        .carousel-inner {
+          height: 300px; /* smaller screens */
+        }
+      }
+
+      .carousel-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* ensures images fully cover the carousel area */
+        border-radius: 25px;
+        filter: brightness(95%);
+        transition: transform 0.8s ease, filter 0.8s ease;
+      }
+
+      .carousel-inner img:hover {
+        transform: scale(1.03) rotateY(1deg); /* subtle 3D tilt */
+        filter: brightness(100%);
+      }
+
+      .carousel-caption {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        text-align: left;
+        color: #1c1c1e;
+        max-width: 400px;
+        transform: translateY(30px);
+        opacity: 0;
+        animation: slideCaption 1s forwards;
+      }
+
+      .carousel-item.active .carousel-caption {
+        animation-delay: 0.3s;
+      }
+
+      @keyframes fadeUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideCaption {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* -------- CARD GRID -------- */
+      .card-container {
+        margin: 3rem auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        width: 90%;
+        perspective: 1000px; /* for smooth 3D hover effect */
+      }
+
+      /* Individual card */
+      .card-panal {
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        animation: slideInUp 1s ease forwards;
+        opacity: 0; /* start hidden for animation */
+      }
+
+      /* Card hover effect */
+      .card-panal:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Card images */
+      .card-panal img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .card-panal:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Card text */
+      .card-panal p {
+        padding: 1rem;
+        font-weight: 500;
+        text-align: center;
+        color: #1c1c1e;
+      }
+
+      /* -------- ANIMATIONS -------- */
+
+      /* Slide in from bottom with fade */
+      @keyframes slideInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Optional: staggered animation delay for multiple cards */
+      .card-container .card-panal:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .card-container .card-panal:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .card-container .card-panal:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .card-container .card-panal:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .card-container .card-panal:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+
+      /* -------- FOOTER -------- */
+      .foot {
+        background: #111;
+        color: #ccc;
+        padding: 2rem;
+        text-align: center;
+        border-top: 3px solid #007aff;
+        animation: fadeUp 1s ease;
+      }
+
+      .foot h3 {
+        color: #fff;
+      }
+
+      .foot a {
+        text-decoration: none;
+        color: #007aff;
+        transition: color 0.3s;
+      }
+
+      .foot a:hover {
+        color: #fff;
+      }
+
+      /* -------- ANIMATIONS -------- */
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(80px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          scale: 0.95;
+        }
+        to {
+          opacity: 1;
+          scale: 1;
+        }
+      }
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes gentleBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .images-f {
+        display: flex;
+        display: inline-block;
+        padding: 1rem;
+        transition: 0.7s;
+      }
+      .images-f:hover {
+        box-shadow: 0 0 10px 5px white;
+      }
+
+      .images-f img {
+        width: 400px;
+        border-radius: 10px;
+      }
+      .info {
+        margin: 1rem;
+        border: 2px solid black;
+        padding: 5px;
+        border-radius: 2rem;
+      }
+      .images-container {
+        width: 100%;
+        padding: 0px 1rem 0px 1rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .dandd {
+        color: white;
+        display: flex;
+        width: 1200px;
+        justify-self: center;
+        justify-content: space-between;
+      }
+      .dos {
+        width: 500px;
+        border: 2px solid green;
+        padding: 1rem;
+        border-radius: 2rem;
+        transition: 0.7s;
+      }
+      .dos:hover {
+        border: green;
+        box-shadow: 0 0 20px 5px green;
+      }
+      .donts {
+        width: 504px;
+        border: 2px solid red;
+        padding: 1rem;
+        border-radius: 2rem;
+        transition: 0.7s;
+      }
+      .donts:hover {
+        border: green;
+        box-shadow: 0 0 20px 5px red;
+      }
+      .foot {
+        height: fit-content;
+        background-color: black;
+        color: white;
+        font-size: 15px;
+      }
+      .fdiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .d1 {
+        width: 400px;
+        margin-top: 10px;
+      }
+      .d2 {
+        margin-top: 70px;
+      }
+      .foot a {
+        text-decoration: none;
+      }
+      body {
+        background-color: #121212;
+      }
+      .rdiv {
+        display: flex;
+        justify-self: center;
+        width: fit-content;
+      }
+      .logoimg img {
+        height: 300px;
+      }
+      .card-panal {
+        border: 2px solid white;
+      }
+      .card-panal:hover {
+        box-shadow: 0 0 20px 5px white;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(14, 14, 73)">
+    <div class="main-container">
+      <div class="header">
+        <div class="logo">TrackBite</div>
+        <div class="login-buttons">
+          <!-- Login Button -->
+          <button
+            id="btn"
+            class="login-button btn btn-outline-primary"
+            style="color: white"
+            onclick="window.location.href='login_register.html'"
+          >
+            Login
+          </button>
+
+          <!-- Register Button -->
+          <button id="btn"
+            class="login-button btn btn-outline-danger" type="button" 
+            onclick="window.location.href='register.html'">Register</button>
+
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="image-show">
+        <div id="carouselExampleCaptions" class="carousel slide">
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="https://asianheartinstitute.org/wp-content/uploads/2024/06/Diet-Chart-for-Diabetic.jpg"
+                class="d-block w-100"
+                alt="Diet"
+                height="100%"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="https://blog.mendzone.in/wp-content/uploads/2024/12/Balanced-Diet-Benefits-Meal-Plans-and-Tips-for-a-Healthier-Lifestyle-mendzone.jpg"
+                class="d-block w-100"
+                alt="diet"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="https://well-choices.com/wp-content/uploads/2023/09/AdobeStock_244311076.jpeg"
+                class="d-block w-100"
+                alt="..."
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="info-table">
+        <h1
+          style="
+            margin: 2rem 0 0 2rem;
+            font-family: cursive;
+            color: crimson;
+            font-weight: bold;
+          "
+        >
+          <!-- Hero Section Heading -->
+          <div class="hero-heading">
+            <h1>Know Your Diet & Track Your Calories</h1>
+            <p>Take control of your health with real-time insights</p>
+          </div>
+        </h1>
+        <div class="card-container">
+          <div class="card-panal" id="hov1" style="color: red">
+            <img
+              src="https://images.everydayhealth.com/images/diet-nutrition/apples-101-about-1440x810.jpg?w=508"
+            />
+            <p>
+              APPLE : <br />Carbs : 96 g <br />Fats : 3 g <br />Protein : 1 g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="color: rgb(255, 255, 0); background-color: rgb(186, 72, 72)"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Bananas.jpg"
+            />
+            <p>
+              BANANA : <br />Carbs : 94 g <br />Fats : 3 g <br />Protein : 3 g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="color: lightcoral; background-color: lightgreen"
+          >
+            <img
+              src="https://images.medicinenet.com/images/article/main_image/why-watermelon-is-not-good-for-you.jpg?output-quality=75"
+            />
+            <p>
+              WATERMELON : <br />Carbs : 11.7 g <br />Fats : 0.2 g <br />Protein
+              : 0.9 g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="background-color: greenyellow"
+          >
+            <img
+              src="https://www.chandigarhayurvedcentre.com/wp-content/uploads/2024/05/3341.png"
+            />
+            <p>
+              PEAR : <br />Carbs : 19 g <br />Fats : 0.2 g <br />Protein: 0.5 g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="color: rgb(255, 158, 177); background-color: olivedrab"
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/7/74/%E0%B4%95%E0%B5%88%E0%B4%A4%E0%B4%9A%E0%B5%8D%E0%B4%9A%E0%B4%95%E0%B5%8D%E0%B4%95.jpg"
+            />
+            <p>
+              PINEAPPLE : <br />Carbs : 21.6 g <br />Fats : 0.2 g <br />Protein
+              : 0.9 g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="color: greenyellow; background-color: olive"
+          >
+            <img
+              src="https://cdn.britannica.com/45/126445-050-4C0FA9F6/Kiwi-fruit.jpg"
+            />
+            <p>
+              KIWI : <br />Carbs : 10.5 g <br />Fats : 0.3 g <br />Protein : 0.8
+              g
+            </p>
+          </div>
+          <div
+            class="card-panal"
+            id="hov1"
+            style="color: whitesmoke; background-color: palevioletred"
+          >
+            <img
+              src="https://img.lb.wbmdstatic.com/vim/live/webmd/consumer_assets/site_images/article_thumbnails/BigBead/what_are_the_benefits_of_dragon_fruit_bigbead/1800ss_getty_rf_dragon_fruit_pitaya.jpg"
+            />
+            <p>
+              DRAGON FRUIT : <br />Carbs : 14.7 g <br />Fats : 0.5 g
+              <br />Protein : 1.1 g
+            </p>
+          </div>
+          <div class="card-panal" id="mmo">
+             <a href="login_register.html">
+         <img
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQql_osdg1NOUdxidkIMKzFJnuUjfD0VQeJ9Q&s"
+         alt="Login Banner"
+         style="width: 100%; cursor: pointer;"
+          />
+             </a>
+  <p>
+    <a href="login_register.html" id="more" style="display: flex; justify-content: center; text-decoration: none; color: blue;">
+      Click On The Banner to Login
+    </a>
+  </p>
+</div>
+
+        </div>
+      </div>
+
+      <hr />
+
+      <section>
+        <div class="information" style="color: white">
+          <div class="info" style="border: 2px solid white">
+            <h1>🌍 Global Food & Health Facts</h1>
+            <br />
+            <ul style="list-style-type: disc">
+              <li>
+                Over 1/3 of the world’s adult population is overweight or obese.
+                <strong>Source:</strong> World Health Organization (WHO)
+              </li>
+              <br />
+              <li>
+                More than 3 billion people can’t afford a healthy diet. Healthy
+                diets cost more than $3 per day in many countries.
+                <strong>Source:</strong> FAO, 2023
+              </li>
+              <br />
+              <li>
+                Every year, poor diet causes about 11 million deaths globally.
+                This includes deaths due to heart disease, diabetes, and certain
+                cancers.
+                <strong>Source:</strong> Global Burden of Disease Study
+              </li>
+              <br />
+              <li>
+                The global average calorie intake is around 2,900 kcal per day.
+                But it varies widely: >3,600 kcal/day in the US, <2,200 kcal/
+                day in some African countries.
+                <strong>Source:</strong> FAO, 2024
+              </li>
+              <br />
+              <li>
+                One-third of all food produced globally is wasted. About 1.3
+                billion tons of food is lost or wasted each year.
+                <strong>Source:</strong> United Nations Environment Programme
+                (UNEP)
+              </li>
+              <br />
+              <li>
+                Undernutrition affects 735 million people worldwide. Mainly in
+                low-income and conflict-affected regions.
+                <strong>Source:</strong> FAO SOFI Report, 2023
+              </li>
+              <br />
+              <li>
+                Most people consume more salt than recommended. The WHO limit is
+                5g/day; global average is nearly 10g/day. High salt intake is
+                linked to high blood pressure and heart disease.
+              </li>
+            </ul>
+          </div>
+
+          <div class="images-container" style="padding: none">
+            <div class="images-f">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/56b957c5d51cd446dcdb43d8/1590844435822-XMX25UQELSDOZB55Q55P/CANADAS-FOOD-GUIDE-1.png"
+              />
+            </div>
+            <div class="images-f">
+              <img
+                src="https://cdn-wordpress-info.futurelearn.com/info/wp-content/uploads/9d3398fe-83ba-4424-a424-868581f99cbf-1.png"
+                style="height: 100%; padding: none"
+              />
+            </div>
+            <div class="images-f">
+              <img
+                src="https://hips.hearstapps.com/hmg-prod/images/wh-infographic-caloriee1-1-1670599858.png?resize=980:"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <br />
+      <hr />
+      <br />
+      <section>
+        <div class="dandd">
+          <div class="dos">
+            <div class="dos_img">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/702/484/small_2x/dos-and-donts-signs-good-and-bad-icon-positive-and-negative-sign-png.png"
+                style="height: 100px; display: flex; justify-self: center"
+              />
+            </div>
+            <hr />
+            <div class="dos_text">
+              <ul>
+                <li>
+                  <strong> Understand Your Individual Calorie Needs</strong>
+                </li>
+                <ul>
+                  <li>
+                    Your daily calorie requirement depends on your age, gender,
+                    height, weight, activity level, and metabolic rate.
+                  </li>
+                  <li>
+                    General averages: Adult females typically need 1600-2400
+                    calories/day; adult males 2200-3000 calories/day. These vary
+                    significantly.
+                  </li>
+                </ul>
+                <li>
+                  <strong>Prioritize Nutrient-Dense Foods</strong>
+                  <ul>
+                    <li>
+                      Fruits and Vegetables: Aim for at least 5 portions a day.
+                      They are low in calories, high in fiber, vitamins,
+                      minerals, and antioxidants, promoting fullness and overall
+                      health.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Practice Portion Control</strong>
+                  <ul>
+                    <li>
+                      Be mindful of serving sizes. Even healthy foods can
+                      contribute to excess calories if consumed in large
+                      quantities.
+                    </li>
+                    <li>
+                      Measure or weigh portions, especially for calorie-dense
+                      foods like nuts, oils, and grains.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Do Stay Hydrated with Water:</strong>
+                  <ul>
+                    <li>
+                      Drink plenty of water throughout the day. Sometimes,
+                      thirst can be mistaken for hunger.
+                    </li>
+                    <li>
+                      Drinking water before meals can help you feel fuller.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Do Read Food Labels:</strong>
+                  <ul>
+                    <li>
+                      Pay attention to calorie counts per serving, as well as
+                      macronutrient breakdown (carbohydrates, protein, fat),
+                      added sugars, and sodium.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="donts">
+            <div class="donts_img">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/050/702/483/small_2x/dos-and-donts-signs-good-and-bad-icon-positive-and-negative-sign-png.png"
+                style="height: 100px; display: flex; justify-self: center"
+              />
+            </div>
+            <hr />
+            <div class="donts_text">
+              <ul>
+                <li>
+                  <strong>Don't Consume Excessive Added Sugars:</strong>
+                  <ul>
+                    <li>
+                      Avoid sodas, sweetened juices, sports drinks, and overly
+                      sweet coffee/tea. These are "empty calories" that provide
+                      little to no nutritional value and don't promote satiety.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Don't Overdo Unhealthy Fats and Fried Foods:</strong>
+                  <ul>
+                    <li>
+                      Be wary of creamy sauces & gravies, which are often made
+                      with butter, cream, or excessive oil, adding hundreds of
+                      calories without much nutritional benefit.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Don't Rely Heavily on Refined Grains:</strong>
+                  <ul>
+                    <li>
+                      Limit consumption of white bread, white pasta, and "maida"
+                      (refined flour) items. These are low in fiber and
+                      nutrients compared to their whole-grain counterparts and
+                      can cause rapid blood sugar spikes and don't keep you full
+                      for long.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Don't Engage in Mindless Eating:</strong>
+                  <ul>
+                    <li>
+                      Avoid eating while distracted (e.g., watching TV, using
+                      your phone, working on the computer).
+                    </li>
+                    <li>
+                      Don't eat out of boredom or stress; find alternative
+                      coping mechanisms.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Don't Ignore Your Body's Signals:</strong>
+                  <ul>
+                    <li>
+                      Don't force yourself to finish everything on your plate if
+                      you're already full.
+                    </li>
+                    <li>
+                      Conversely, don't ignore true hunger for extended periods,
+                      as it can lead to binging later.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </section>
+
+      <footer class="foot">
+        <div class="fdiv">
+          <div class="d1">
+            <h3>About Us</h3>
+            <ul>
+              <li><a href="/about-us">Our Mission, Values & Team</a></li>
+            </ul>
+
+            <h3>Contact Us</h3>
+            <ul>
+              <li><a href="/contact">Get in Touch</a></li>
+            </ul>
+
+            <h3>Legal & Policies</h3>
+            <ul>
+              <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/terms-of-service">Terms of Service</a></li>
+            </ul>
+
+            <h3>Support & Info</h3>
+            <ul>
+              <li><a href="/sitemap">Sitemap</a></li>
+              <li><a href="/faq">Frequently Asked Questions</a></li>
+            </ul>
+          </div>
+          <div class="d2">
+            <h3>Team Members</h3>
+            <br />
+            <ul>
+              <li>Jash R. Mohite - B - 303</li>
+              <hr />
+              <li>Pranav P. Narkar - B - 307</li>
+              <hr />
+              <li>Vishal R. Narkhed - B - 308</li>
+            </ul>
+          </div>
+          <div class="logoimg">
+            <img src="output-onlinepngtools (3).png" alt="TRACKBITE" />
+            <br />
+            <p style="margin-top: 10px">
+              <i>Count your calories, not your happiness!</i>
+            </p>
+          </div>
+        </div>
+        <div class="rdiv">
+          &copy;&nbsp;Copyright 2023. All rights reserved.&nbsp;&reg;
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

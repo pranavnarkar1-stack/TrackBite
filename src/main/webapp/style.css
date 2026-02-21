@@ -1,0 +1,293 @@
+/* Reset margin for all elements */
+* {
+  margin: 0;
+}
+
+/* Body background */
+body {
+  background-color: #121212;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Added for vertical alignment */
+  padding: 1rem 1rem 0 1rem;
+}
+.logo {
+  font-size: 3rem;
+  font-family: "Times New Roman", Times, serif;
+  margin: 1rem 0 0 1rem;
+}
+.login-buttons {
+  margin: 2rem 1rem 0 0;
+}
+.admin {
+  margin-left: 1rem;
+}
+
+/* CAROUSEL */
+.carousel-inner {
+  height: 400px;
+  width: 585px;
+  border-radius: 25px;
+  border: 2px solid black;
+  margin: 2rem auto; /* Center carousel */
+  overflow: hidden; /* Hide overflow */
+}
+.image-show {
+  border-radius: 25px;
+  padding: 0 2rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.button {
+  background-color: transparent; /* Changed from 'none' to 'transparent' */
+  border: none;
+  cursor: pointer;
+}
+
+/* CARD CONTAINER */
+.card-container {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; /* Added gap for spacing */
+  justify-content: center;
+}
+
+/* CARD PANEL */
+.card-panal {
+  justify-self: center;
+  height: 13rem;
+  width: 14rem;
+  background-color: lightcyan;
+  border-radius: 15px;
+  transition: 1s;
+  overflow: hidden;
+  margin-top: 1rem;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.card-panal img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: 0.7s;
+  object-fit: cover;
+}
+.card-panal p {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+  z-index: 0;
+  color: #000;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Hover effect on card image */
+.card-panal:hover img {
+  height: 50%;
+  border-radius: 15px 15px 0 0;
+}
+.card-panal:hover p {
+  z-index: 1;
+  opacity: 1;
+}
+
+/* INFORMATION SECTION */
+.information {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 2rem 5rem;
+}
+.info {
+  height: fit-content;
+  width: fit-content;
+  border: 2px solid black;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* CUSTOM CAROUSEL */
+.custom-carousel {
+  margin: auto;
+  max-width: 585px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 25px;
+  border: 2px solid black;
+}
+.custom-carousel img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* IMAGES CONTAINER */
+.images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 2rem;
+}
+.images-f {
+  height: 350px;
+  width: 370px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2rem 1rem 0 1rem;
+  transition: 0.5s;
+  box-shadow: 0.5px 0.5px 0.3px black;
+}
+.images-f img {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
+  border: 2px solid black;
+  display: block;
+}
+.images-f:hover {
+  box-shadow: 5px 5px 5px 2px rgba(73, 73, 73, 0.7);
+}
+
+/* LINKS */
+#mmo p a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* DANDD SECTION */
+.dandd {
+  display: flex;
+  flex-wrap: wrap;
+  height: fit-content;
+  margin: 0 2rem 0 2rem;
+  padding: 1rem;
+  justify-content: space-evenly;
+}
+
+/* DOS BOX */
+.dos {
+  height: 670px;
+  max-width: 450px;
+  border: 2px solid green;
+  justify-self: center;
+  border-radius: 30px;
+  padding: 0 1rem 1rem 1rem;
+  animation: dosanim 2s ease-in 1 normal;
+  box-shadow: 0.01rem 0.01rem 1rem 0.5rem rgba(0, 255, 0, 0.15);
+  transition: 0.7s;
+  margin-top: 2rem;
+  background-color: #e6ffe6;
+}
+.dos:hover {
+  box-shadow: 0.01rem 0.01rem 30px rgba(0, 255, 0, 0.5);
+}
+.dos .dos_img {
+  width: 100%;
+  justify-self: center;
+}
+.dos .dos_img img {
+  height: 70px;
+  margin-left: 130px;
+  margin-top: 10px;
+}
+.dos_text {
+  font-size: 14px;
+  color: #000;
+}
+
+/* DONTS BOX */
+.donts {
+  margin-left: 1rem;
+  height: 670px;
+  max-width: 450px;
+  border: 2px solid red;
+  border-radius: 30px;
+  padding: 0 1rem 1rem 1rem;
+  box-shadow: 0.01rem 0.01rem 1rem 0.5rem rgba(255, 0, 0, 0.15);
+  transition: 0.7s;
+  margin-top: 2rem;
+  background-color: #ffe6e6;
+}
+.donts:hover {
+  box-shadow: 0.1rem 0.01rem 30px rgba(255, 0, 0, 0.5);
+}
+.donts .donts_img img {
+  height: 70px;
+  margin-left: 130px;
+  margin-top: 10px;
+}
+.donts_text {
+  font-size: 14px;
+  color: #000;
+}
+
+/* LOGO IMAGE */
+.logoimg img {
+  height: 250px;
+}
+.logoimg {
+  margin-top: 50px;
+}
+
+/* ANIMATION */
+@keyframes dosanim {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+    background-color: pink;
+  }
+  to {
+    opacity: 1;
+    background-color: blue;
+    transform: translateX(100px);
+  }
+}
+
+/* FOOTER */
+.foot {
+  height: fit-content;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  padding: 1rem 0;
+}
+.fdiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.d1 {
+  width: 400px;
+  margin-top: 10px;
+}
+.d2 {
+  margin-top: 70px;
+}
+.foot a {
+  text-decoration: none;
+  color: white;
+}
+
+/* RIGHT DIV */
+.rdiv {
+  display: flex;
+  justify-self: center;
+  width: fit-content;
+}
